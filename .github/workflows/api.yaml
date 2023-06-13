@@ -9,6 +9,7 @@ on:
     branches: [master]
     paths:
       - "apps/api/**"
+      - ".github/workflows/api.yaml"
   pull_request:
     branches: [master]
     paths:
