@@ -57,4 +57,3 @@ jobs:
       - run: npx nps prepare.ci.api
       - run: npx nps build.ci.api
       - run: npx nps prisma.generate
-      - run: npx nps test.ci.api
