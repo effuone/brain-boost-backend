@@ -9,8 +9,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Leaves Tracker')
-    .setDescription('Api Docs for leaves tracker')
+    .setTitle('NestJS boilerplate')
+    .setDescription('Api Docs for nest js boilerplate')
     .setVersion('1.0')
     .build();
 
