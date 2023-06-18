@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/persistence/prisma/prisma.service';
 import { User, Prisma } from '@prisma/client';
+import { CreateUserRequest, CreateUserResponse } from './user.dto';
+import * as crypto from 'crypto'
 
 @Injectable()
 export class UserService {
@@ -31,11 +33,35 @@ export class UserService {
     });
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({
-      data,
-    });
+  hashPassword = (password: string) => {
+    const salt = crypto.randomBytes(16).toString('hex');
+    const hash = crypto
+      .pbkdf2Sync(password, salt, 10000, 64, 'sha512')
+      .toString('hex');
+  
+    const hashedPassword = `pbkdf2_sha512$10000$${salt}$${hash}`;
+    return hashedPassword;
   }
+  
+
+  async createUser(data: CreateUserRequest): Promise<CreateUserResponse> {
+    const existingUser = await this.prisma.user.findUnique({ where: { email: data.email } });
+    if (existingUser === null) {
+      const hashedPassword = this.hashPassword(data.password);
+      delete data.password;
+      return await this.prisma.user.create({
+        data: {
+          ...data,
+          password_hash: hashedPassword,
+        },
+        select: {
+          username: true,
+          email: true,
+          phone: true
+        }
+      });
+    }
+  }  
 
   async updateUser(params: {
     where: Prisma.UserWhereUniqueInput;

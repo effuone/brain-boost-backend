@@ -4,12 +4,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { validationSchemaForEnv } from './config/environment-variables';
 import { PersistenceModule } from './persistence/persistence.module';
-import { UserService } from './users/users.service';
-import { UsersModule } from './users/users.module';
+import { UserService } from './user/user.service';
+import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
 import { PostService } from './post/post.service';
 import { PostController } from './post/post.controller';
 import { PrismaService } from './persistence/prisma/prisma.service';
+import { UserController } from './user/user.controller';
 
 @Module({
   imports: [
@@ -18,10 +19,10 @@ import { PrismaService } from './persistence/prisma/prisma.service';
       validationSchema: validationSchemaForEnv,
     }),
     PersistenceModule,
-    UsersModule,
+    UserModule,
     PostModule
   ],
-  controllers: [AppController, PostController],
+  controllers: [AppController, PostController, UserController],
   providers: [AppService, UserService, PostService, PrismaService],
 })
 export class AppModule {}
