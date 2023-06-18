@@ -3,7 +3,8 @@ import { Provider } from "react-redux";
 import store from "../src/store";
 import "../src/styles/global.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
+//switched to any from AppProps
+function MyApp({ Component, pageProps }: any) {
   return (
     <Provider store={store}>
       <Component {...pageProps} />;

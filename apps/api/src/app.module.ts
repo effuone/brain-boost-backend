@@ -10,7 +10,9 @@ import { PostModule } from './post/post.module';
 import { PostService } from './post/post.service';
 import { PostController } from './post/post.controller';
 import { PrismaService } from './persistence/prisma/prisma.service';
-import { UserController } from './user/user.controller';
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,9 +22,10 @@ import { UserController } from './user/user.controller';
     }),
     PersistenceModule,
     UserModule,
-    PostModule
+    PostModule,
+    AuthModule,
   ],
-  controllers: [AppController, PostController, UserController],
-  providers: [AppService, UserService, PostService, PrismaService],
+  controllers: [AppController, PostController, AuthController],
+  providers: [AppService, UserService, PostService, PrismaService, AuthService],
 })
 export class AppModule {}

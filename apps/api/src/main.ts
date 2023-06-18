@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -7,6 +7,7 @@ declare const module: any;
 async function bootstrap() {
   const logger = new Logger('EntryPoint');
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe({transform:true}));
 
   const config = new DocumentBuilder()
     .setTitle('NestJS boilerplate')
