@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/persistence/prisma/prisma.service';
-import { CreateUserRequestDto, CreateUserResponseDto, LoginUserRequestDto, LoginUserResponseDto } from './user.dto';
-import * as crypto from 'crypto'
+import { PrismaService } from '../persistence/prisma/prisma.service';
 import { User, Prisma } from '@prisma/client';
 @Injectable()
 export class UserService {

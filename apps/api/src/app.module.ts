@@ -13,6 +13,7 @@ import { PrismaService } from './persistence/prisma/prisma.service';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -20,12 +21,13 @@ import { AuthModule } from './auth/auth.module';
       isGlobal: true,
       validationSchema: validationSchemaForEnv,
     }),
+    JwtModule,
+    AuthModule,
     PersistenceModule,
     UserModule,
-    PostModule,
-    AuthModule,
+    PostModule
   ],
   controllers: [AppController, PostController, AuthController],
-  providers: [AppService, UserService, PostService, PrismaService, AuthService],
+  providers: [AppService, UserService, PostService, PrismaService, AuthService, JwtService],
 })
 export class AppModule {}

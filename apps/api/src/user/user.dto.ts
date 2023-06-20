@@ -1,6 +1,7 @@
 import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { MinLength, MaxLength, Matches, IsPhoneNumber, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+
 export class CreateUserRequestDto {
     @ApiProperty()
     @IsNotEmpty()
@@ -27,16 +28,6 @@ export class CreateUserRequestDto {
     password: string;
 }
 
-export const mapUserToCreateUserResponseDto = (user: User): CreateUserResponseDto => {
-    const createUserResponseDto: CreateUserResponseDto = {
-      email: user.email,
-      username: user.username,
-      phone: user.phone
-    };
-  
-    return createUserResponseDto;
-  }
-
 export class CreateUserResponseDto extends OmitType(CreateUserRequestDto, ['password']){}
 export class LoginUserRequestDto {
     @ApiProperty()
@@ -47,6 +38,5 @@ export class LoginUserRequestDto {
 }
 
 export class LoginUserResponseDto {
-    @ApiProperty()
     accessToken:string;
 }

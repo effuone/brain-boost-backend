@@ -1,15 +1,19 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { Prisma, User } from '@prisma/client';
 import * as crypto from 'crypto';
-import { CreateUserRequestDto, CreateUserResponseDto, LoginUserRequestDto, LoginUserResponseDto, mapUserToCreateUserResponseDto } from 'src/user/user.dto';
-import { UserService } from 'src/user/user.service';
+import { CreateUserRequestDto, CreateUserResponseDto, LoginUserRequestDto, LoginUserResponseDto } from '../user/user.dto';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService,
+  ) {}
   private readonly logger = new Logger(AuthService.name);
 
-  private hashPassword = (password: string) => {
+  hashPassword = (password: string): string => {
     const salt = crypto.randomBytes(16).toString('hex');
     const hash = crypto
       .pbkdf2Sync(password, salt, 10000, 64, 'sha512')
@@ -18,19 +22,25 @@ export class AuthService {
     const hashedPassword = `pbkdf2_sha512$10000$${salt}$${hash}`;
     return hashedPassword;
   };
-
-  private validatePassword(password: string, hashedPassword: string): boolean {
-    const [iterations, salt, hash] = hashedPassword.split('$');
-    const derivedKey = crypto
-      .pbkdf2Sync(password, salt, Number(iterations), 64, 'sha512')
+  
+  verifyPassword = (password: string, hashedPassword: string): boolean => {
+    const parts = hashedPassword.split('$');
+    if (parts.length !== 4) {
+      return false;
+    }
+  
+    const [, iterationCount, salt, hash] = parts;
+    const generatedHash = crypto
+      .pbkdf2Sync(password, salt, parseInt(iterationCount, 10), 64, 'sha512')
       .toString('hex');
-    const isValid = derivedKey === hash;
-    return isValid;
-  }
+  
+    return hash === generatedHash;
+  };
+  
 
-  async checkIfUserExists(email: string) {
+  async checkIfUserExists(email: string): Promise<boolean> {
     const user = await this.userService.getUserByEmail(email)
-    return user ? user : null
+    return user ? true : false
   }
 
   async signUp(data: CreateUserRequestDto): Promise<CreateUserResponseDto> | null {
@@ -42,10 +52,24 @@ export class AuthService {
     };
     this.logger.log(`New user: ${data.username}/${data.email}`)
     const newUserModel = await this.userService.createUser(registerUserModel);
-    return mapUserToCreateUserResponseDto(newUserModel)
+    return {
+      email: newUserModel.email,
+      username: newUserModel.username,
+      phone: newUserModel.phone
+    }
   }
 
-//   async signIn(data: LoginUserRequestDto): Promise<LoginUserResponseDto> | null {
-    
-//   }
+  async signIn(data: LoginUserRequestDto) : Promise<LoginUserResponseDto>{
+    const user = await this.userService.getUserByEmail(data.email)
+    this.verifyPassword(data.password, user.password_hash)
+    const userDto = {
+      email: user.email,
+      username: user.username,
+      phone: user.phone
+    }
+    const payload: LoginUserResponseDto = {
+      accessToken: this.jwtService.sign(userDto, { privateKey: process.env.JWT_KEY})
+    }
+    return payload
+  }
 }
