@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Prisma, User } from '@prisma/client';
 import * as crypto from 'crypto';
-import { CreateUserRequestDto, CreateUserResponseDto, LoginUserRequestDto, LoginUserResponseDto } from '../user/user.dto';
+import { CreateUserRequestDto, CreateUserResponseDto, LoginUserRequestDto, LoginUserResponseDto, UserDto } from '../user/user.dto';
 import { UserService } from '../user/user.service';
 
 @Injectable()
@@ -63,6 +63,7 @@ export class AuthService {
     const user = await this.userService.getUserByEmail(data.email)
     this.verifyPassword(data.password, user.password_hash)
     const userDto = {
+      sub: user.id,
       email: user.email,
       username: user.username,
       phone: user.phone
@@ -72,4 +73,15 @@ export class AuthService {
     }
     return payload
   }
+
+  async getUserData(token: string): Promise<UserDto> {
+    const decodedData: any = this.jwtService.decode(token);
+    const userData: UserDto = {
+      id: decodedData.sub,
+      email: decodedData.email ? decodedData.email : '', 
+      username: decodedData.username ? decodedData.username : '', 
+      phone: decodedData.phone ? decodedData.phone : ''
+    };    
+    return userData;
+  }  
 }

@@ -4,13 +4,23 @@ import {
   Body,
   HttpException,
   HttpStatus,
+  Headers,
   Logger,
+  Get,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiBody } from '@nestjs/swagger';
-import { CreateUserRequestDto, CreateUserResponseDto, LoginUserRequestDto } from '../user/user.dto';
+import { ApiTags, ApiBody, ApiHeader, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  CreateUserRequestDto,
+  CreateUserResponseDto,
+  LoginUserRequestDto,
+  UserDto,
+} from '../user/user.dto';
 import { AuthService } from './auth.service';
 import { LoginUserResponseDto } from '../user/user.dto';
+import { AuthGuard } from './auth.guard';
 @Controller('auth')
+@ApiBearerAuth()
 @ApiTags('Authentication & Authorization')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -80,6 +90,19 @@ export class AuthController {
       return accessToken;
     } catch (error: any) {
       this.logger.error(`Error logging up user: ${error.message}`);
+      console.log(error);
+      throw error;
+    }
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('profile')
+  async getProfile(@Headers() headers): Promise<UserDto> {
+    try {
+      const token = headers['authorization'].split(' ')[1];
+      return await this.authService.getUserData(token);
+    } catch (error: any) {
+      this.logger.error(`Error checking up profile: ${error.message}`);
       console.log(error);
       throw error;
     }

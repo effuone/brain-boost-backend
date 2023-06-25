@@ -40,3 +40,10 @@ export class LoginUserRequestDto {
 export class LoginUserResponseDto {
     accessToken:string;
 }
+
+export class UserDto {
+    id: number
+    email: string;
+    username: string;
+    phone: string;
+}
