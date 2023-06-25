@@ -7,11 +7,18 @@ declare const module: any;
 async function bootstrap() {
   const logger = new Logger('EntryPoint');
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({transform:true}));
-
+  app.useGlobalPipes(new ValidationPipe({transform:true, forbidUnknownValues: false}));
   const config = new DocumentBuilder()
     .setTitle('NestJS boilerplate')
     .setDescription('Api Docs for nest js boilerplate')
+    .addBearerAuth({ 
+      description: `Please enter token in following format: Bearer <JWT>`,
+      name: 'Authorization',
+      bearerFormat: 'Bearer', 
+      scheme: 'Bearer',
+      type: 'http', 
+      in: 'Header'
+    })
     .setVersion('1.0')
     .build();
 

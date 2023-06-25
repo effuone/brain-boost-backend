@@ -14,12 +14,17 @@ import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: validationSchemaForEnv,
+    }),
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
     }),
     JwtModule,
     AuthModule,
@@ -28,6 +33,6 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
     PostModule
   ],
   controllers: [AppController, PostController, AuthController],
-  providers: [AppService, UserService, PostService, PrismaService, AuthService, JwtService],
+  providers: [PostService],
 })
 export class AppModule {}

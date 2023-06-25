@@ -5,6 +5,4 @@ export class CreatePostDto {
     title: string;
     @ApiProperty()
     content?: string;
-    @ApiProperty()
-    authorEmail: string;
 }

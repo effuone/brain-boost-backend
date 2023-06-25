@@ -1,60 +1,75 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Put,
+  Delete,
+  UseGuards,
+  Logger,
+} from '@nestjs/common';
 import { PostService } from './post.service';
-import { ApiTags, ApiBody, ApiProperty } from '@nestjs/swagger';
-import { Post as PostModel} from '@prisma/client';
+import { ApiTags, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import { Post as PostModel } from '@prisma/client';
 import { CreatePostDto } from './post.dto';
+import { AuthGuard } from '../auth/auth.guard';
+import { Headers } from '@nestjs/common';
+import { SelectPostQueryParameters } from './post.service';
+import { PaginatedResult } from '../persistence/prisma/prisma.paginator';
+import { AuthService } from 'src/auth/auth.service';
 
 @Controller('posts')
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
+@ApiTags('Posts')
 export class PostController {
   constructor(
-    private readonly postService: PostService
+    private readonly postService: PostService,
+    private readonly authService: AuthService,
   ) {}
+  private readonly logger = new Logger(PostController.name);
+
   @Get('/:id')
-  @ApiTags('Posts') // Add API tags for the endpoint
   async getPostById(@Param('id') id: string): Promise<PostModel> {
     return this.postService.post({ id: Number(id) });
   }
 
-  @Get('/feed')
-  @ApiTags('Posts') // Add API tags for the endpoint
-  async getPublishedPosts(): Promise<PostModel[]> {
-    return this.postService.posts({
-      where: { published: true },
+  @Get('/')
+  async getPublishedPosts(
+    @Headers() queryParameters: SelectPostQueryParameters,
+  ): Promise<PaginatedResult<PostModel>> {
+    const posts = await this.postService.getPosts({
+      where: { published: false },
+      limit: queryParameters.limit,
+      page: queryParameters.page,
     });
+    this.logger.log(`Retrieved ${posts.data.length} posts`)
+    return posts;
   }
 
-  @Get('filtered-posts/:searchString')
-  @ApiTags('Posts') // Add API tags for the endpoint
-  async getFilteredPosts(@Param('searchString') searchString: string): Promise<PostModel[]> {
-    return this.postService.posts({
-      where: {
-        OR: [
-          {
-            title: { contains: searchString },
-          },
-          {
-            content: { contains: searchString },
-          },
-        ],
-      },
-    });
-  }
+  @Post('/')
+  @ApiBody({ type: () => CreatePostDto })
+  async createPost(
+    @Body() postData: CreatePostDto,
+    @Headers() headers,
+  ): Promise<PostModel> {
 
-  @ApiTags('Posts') // Add API tags for the endpoint
-  @ApiBody({ type: () => CreatePostDto }) // Add request body parameter for Swagger documentation
-  async createDraft(@Body() postData: CreatePostDto): Promise<PostModel> {
-    const { title, content, authorEmail } = postData;
+    const { title, content } = postData;
+    const token = headers['authorization'].split(' ')[1];
+    const currentUser = await this.authService.getUserData(token)
+    
+    this.logger.log(`${currentUser.username} created new post`)
     return this.postService.createPost({
       title,
       content,
       author: {
-        connect: { email: authorEmail },
+        connect: { email: currentUser.email },
       },
     });
   }
 
   @Put('publish/:id')
-  @ApiTags('Posts') // Add API tags for the endpoint
   async publishPost(@Param('id') id: string): Promise<PostModel> {
     return this.postService.updatePost({
       where: { id: Number(id) },
@@ -63,7 +78,6 @@ export class PostController {
   }
 
   @Delete('/:id')
-  @ApiTags('Posts') // Add API tags for the endpoint
   async deletePost(@Param('id') id: string): Promise<PostModel> {
     return this.postService.deletePost({ id: Number(id) });
   }
