@@ -7,17 +7,19 @@ declare const module: any;
 async function bootstrap() {
   const logger = new Logger('EntryPoint');
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({transform:true, forbidUnknownValues: false}));
+  app.useGlobalPipes(
+    new ValidationPipe({ transform: true, forbidUnknownValues: false }),
+  );
   const config = new DocumentBuilder()
     .setTitle('NestJS boilerplate')
     .setDescription('Api Docs for nest js boilerplate')
-    .addBearerAuth({ 
+    .addBearerAuth({
       description: `Please enter token in following format: Bearer <JWT>`,
       name: 'Authorization',
-      bearerFormat: 'Bearer', 
+      bearerFormat: 'Bearer',
       scheme: 'Bearer',
-      type: 'http', 
-      in: 'Header'
+      type: 'http',
+      in: 'Header',
     })
     .setVersion('1.0')
     .build();
@@ -26,7 +28,7 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   const PORT = 5000;
-  app.enableCors()
+  app.enableCors();
   await app.listen(PORT);
 
   if (module.hot) {

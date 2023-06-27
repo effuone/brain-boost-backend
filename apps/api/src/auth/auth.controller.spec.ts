@@ -1,7 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { CreateUserRequestDto, CreateUserResponseDto, LoginUserRequestDto } from '../user/user.dto';
+import {
+  CreateUserRequestDto,
+  CreateUserResponseDto,
+  LoginUserRequestDto,
+} from '../user/user.dto';
 import { HttpStatus, HttpException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
@@ -44,7 +48,9 @@ describe('AuthController', () => {
 
       const result = await controller.signUpUser(userData);
 
-      expect(authService.checkIfUserExists).toHaveBeenCalledWith(userData.email);
+      expect(authService.checkIfUserExists).toHaveBeenCalledWith(
+        userData.email,
+      );
       expect(authService.signUp).toHaveBeenCalledWith(userData);
       expect(result).toEqual(newUser);
     });
@@ -60,10 +66,12 @@ describe('AuthController', () => {
       jest.spyOn(authService, 'checkIfUserExists').mockResolvedValue(true);
 
       await expect(controller.signUpUser(userData)).rejects.toThrowError(
-        new HttpException('User already exists', HttpStatus.BAD_REQUEST)
+        new HttpException('User already exists', HttpStatus.BAD_REQUEST),
       );
 
-      expect(authService.checkIfUserExists).toHaveBeenCalledWith(userData.email);
+      expect(authService.checkIfUserExists).toHaveBeenCalledWith(
+        userData.email,
+      );
     });
 
     it('should throw any error thrown by the service', async () => {
@@ -79,7 +87,9 @@ describe('AuthController', () => {
 
       await expect(controller.signUpUser(userData)).rejects.toThrowError(error);
 
-      expect(authService.checkIfUserExists).toHaveBeenCalledWith(userData.email);
+      expect(authService.checkIfUserExists).toHaveBeenCalledWith(
+        userData.email,
+      );
     });
   });
 
@@ -96,7 +106,9 @@ describe('AuthController', () => {
 
       const result = await controller.signInUser(userData);
 
-      expect(authService.checkIfUserExists).toHaveBeenCalledWith(userData.email);
+      expect(authService.checkIfUserExists).toHaveBeenCalledWith(
+        userData.email,
+      );
       expect(authService.signIn).toHaveBeenCalledWith(userData);
       expect(result).toEqual(accessToken);
     });
@@ -110,10 +122,12 @@ describe('AuthController', () => {
       jest.spyOn(authService, 'checkIfUserExists').mockResolvedValue(false);
 
       await expect(controller.signInUser(userData)).rejects.toThrowError(
-        new HttpException('This user is not found', HttpStatus.NOT_FOUND)
+        new HttpException('This user is not found', HttpStatus.NOT_FOUND),
       );
 
-      expect(authService.checkIfUserExists).toHaveBeenCalledWith(userData.email);
+      expect(authService.checkIfUserExists).toHaveBeenCalledWith(
+        userData.email,
+      );
     });
 
     it('should throw any error thrown by the service', async () => {
@@ -127,7 +141,9 @@ describe('AuthController', () => {
 
       await expect(controller.signInUser(userData)).rejects.toThrowError(error);
 
-      expect(authService.checkIfUserExists).toHaveBeenCalledWith(userData.email);
+      expect(authService.checkIfUserExists).toHaveBeenCalledWith(
+        userData.email,
+      );
     });
   });
 });

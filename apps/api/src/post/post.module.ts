@@ -6,8 +6,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports:[JwtModule, AuthModule],
+  imports: [JwtModule, AuthModule],
   controllers: [PostController],
-  providers: [PostService, PrismaService]
+  providers: [PostService, PrismaService],
 })
 export class PostModule {}

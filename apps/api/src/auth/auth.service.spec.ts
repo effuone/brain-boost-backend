@@ -3,8 +3,13 @@ import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
-import { CreateUserRequestDto, CreateUserResponseDto, LoginUserRequestDto, LoginUserResponseDto } from '../user/user.dto';
-import { PrismaService } from '../persistence/prisma/prisma.service'
+import {
+  CreateUserRequestDto,
+  CreateUserResponseDto,
+  LoginUserRequestDto,
+  LoginUserResponseDto,
+} from '../user/user.dto';
+import { PrismaService } from '../persistence/prisma/prisma.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -13,12 +18,7 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        AuthService,
-        UserService,
-        JwtService,
-        PrismaService,
-      ],
+      providers: [AuthService, UserService, JwtService, PrismaService],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
@@ -39,7 +39,7 @@ describe('AuthService', () => {
         email: email,
         phone: '',
         password_hash: 'hashedPassword',
-        emailConfirmed: false
+        emailConfirmed: false,
       };
 
       jest.spyOn(userService, 'getUserByEmail').mockResolvedValue(user);
@@ -76,7 +76,7 @@ describe('AuthService', () => {
         email: 'johndoe@example.com',
         phone: '',
         password_hash: 'hashedPassword',
-        emailConfirmed: false
+        emailConfirmed: false,
       };
       const createUserResponseDto: CreateUserResponseDto = {
         username: newUserModel.username,
@@ -112,7 +112,7 @@ describe('AuthService', () => {
         email: data.email,
         phone: '',
         password_hash: 'hashedPassword',
-        emailConfirmed: false
+        emailConfirmed: false,
       };
       const loginUserResponseDto: LoginUserResponseDto = {
         accessToken: 'accessToken',
@@ -125,14 +125,17 @@ describe('AuthService', () => {
       const signInResult = await service.signIn(data);
 
       expect(userService.getUserByEmail).toHaveBeenCalledWith(data.email);
-      expect(service.verifyPassword).toHaveBeenCalledWith(data.password, user.password_hash);
+      expect(service.verifyPassword).toHaveBeenCalledWith(
+        data.password,
+        user.password_hash,
+      );
       expect(jwtService.sign).toHaveBeenCalledWith(
         {
           email: user.email,
           username: user.username,
           phone: user.phone,
         },
-        { privateKey: process.env.JWT_KEY }
+        { privateKey: process.env.JWT_KEY },
       );
       expect(signInResult).toEqual(loginUserResponseDto);
     });

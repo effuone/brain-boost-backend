@@ -44,7 +44,7 @@ export class PostController {
       limit: queryParameters.limit,
       page: queryParameters.page,
     });
-    this.logger.log(`Retrieved ${posts.data.length} posts`)
+    this.logger.log(`Retrieved ${posts.data.length} posts`);
     return posts;
   }
 
@@ -54,12 +54,11 @@ export class PostController {
     @Body() postData: CreatePostDto,
     @Headers() headers,
   ): Promise<PostModel> {
-
     const { title, content } = postData;
     const token = headers['authorization'].split(' ')[1];
-    const currentUser = await this.authService.getUserData(token)
-    
-    this.logger.log(`${currentUser.username} created new post`)
+    const currentUser = await this.authService.getUserData(token);
+
+    this.logger.log(`${currentUser.username} created new post`);
     return this.postService.createPost({
       title,
       content,

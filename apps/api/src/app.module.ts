@@ -30,7 +30,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     AuthModule,
     PersistenceModule,
     UserModule,
-    PostModule
+    PostModule,
   ],
   controllers: [AppController, PostController, AuthController],
   providers: [PostService],

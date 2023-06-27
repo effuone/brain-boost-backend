@@ -27,8 +27,9 @@ describe('UserService', () => {
         username: 'John Doe',
         email: 'johndoe@example.com',
         phone: '+77777777777',
-        password_hash: 'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
-        emailConfirmed: false
+        password_hash:
+          'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
+        emailConfirmed: false,
       };
 
       jest.spyOn(prismaService.user, 'create').mockResolvedValue(user);
@@ -37,13 +38,16 @@ describe('UserService', () => {
         username: 'John Doe',
         email: 'johndoe@example.com',
         phone: '+77777777777',
-        password_hash: 'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
-        emailConfirmed: false
+        password_hash:
+          'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
+        emailConfirmed: false,
       };
 
       const createdUser = await service.createUser(createUserInput);
 
-      expect(prismaService.user.create).toHaveBeenCalledWith({ data: createUserInput });
+      expect(prismaService.user.create).toHaveBeenCalledWith({
+        data: createUserInput,
+      });
       expect(createdUser).toEqual(user);
     });
   });
@@ -56,25 +60,28 @@ describe('UserService', () => {
           username: 'John Doe',
           email: 'johndoe@example.com',
           phone: '+77777777771',
-          password_hash: 'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
-          emailConfirmed: false
+          password_hash:
+            'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
+          emailConfirmed: false,
         },
         {
           id: 2,
           username: 'John Mal',
           email: 'idiot@example.com',
           phone: '+77777777777',
-          password_hash: 'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
-          emailConfirmed: false
+          password_hash:
+            'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
+          emailConfirmed: false,
         },
         {
           id: 3,
           username: 'Albert Doe',
           email: 'maryana@example.com',
           phone: '+77777777778',
-          password_hash: 'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
-          emailConfirmed: false
-        }
+          password_hash:
+            'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
+          emailConfirmed: false,
+        },
       ];
 
       jest.spyOn(prismaService.user, 'findMany').mockResolvedValue(users);
@@ -94,15 +101,18 @@ describe('UserService', () => {
         username: 'John Doe',
         email: 'johndoe@example.com',
         phone: '+77777777777',
-        password_hash: 'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
-        emailConfirmed: false
+        password_hash:
+          'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
+        emailConfirmed: false,
       };
 
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(user);
 
       const fetchedUser = await service.getUserById(userId);
 
-      expect(prismaService.user.findUnique).toHaveBeenCalledWith({ where: { id: userId } });
+      expect(prismaService.user.findUnique).toHaveBeenCalledWith({
+        where: { id: userId },
+      });
       expect(fetchedUser).toEqual(user);
     });
 
@@ -113,7 +123,9 @@ describe('UserService', () => {
 
       const fetchedUser = await service.getUserById(userId);
 
-      expect(prismaService.user.findUnique).toHaveBeenCalledWith({ where: { id: userId } });
+      expect(prismaService.user.findUnique).toHaveBeenCalledWith({
+        where: { id: userId },
+      });
       expect(fetchedUser).toBeNull();
     });
   });
@@ -126,15 +138,18 @@ describe('UserService', () => {
         username: 'John Doe',
         email: email,
         phone: '+77777777777',
-        password_hash: 'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
-        emailConfirmed: false
+        password_hash:
+          'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
+        emailConfirmed: false,
       };
 
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(user);
 
       const fetchedUser = await service.getUserByEmail(email);
 
-      expect(prismaService.user.findUnique).toHaveBeenCalledWith({ where: { email } });
+      expect(prismaService.user.findUnique).toHaveBeenCalledWith({
+        where: { email },
+      });
       expect(fetchedUser).toEqual(user);
     });
 
@@ -145,7 +160,9 @@ describe('UserService', () => {
 
       const fetchedUser = await service.getUserByEmail(email);
 
-      expect(prismaService.user.findUnique).toHaveBeenCalledWith({ where: { email } });
+      expect(prismaService.user.findUnique).toHaveBeenCalledWith({
+        where: { email },
+      });
       expect(fetchedUser).toBeNull();
     });
   });
@@ -158,8 +175,9 @@ describe('UserService', () => {
         username: 'John Doe',
         email: 'johndoe@example.com',
         phone: '+77777777777',
-        password_hash: 'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
-        emailConfirmed: false
+        password_hash:
+          'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
+        emailConfirmed: false,
       };
 
       jest.spyOn(prismaService.user, 'update').mockResolvedValue(updatedUser);
@@ -170,9 +188,15 @@ describe('UserService', () => {
         // Add other properties as required
       };
 
-      const updatedUserResult = await service.updateUser(userId, updateUserInput);
+      const updatedUserResult = await service.updateUser(
+        userId,
+        updateUserInput,
+      );
 
-      expect(prismaService.user.update).toHaveBeenCalledWith({ where: { id: userId }, data: updateUserInput });
+      expect(prismaService.user.update).toHaveBeenCalledWith({
+        where: { id: userId },
+        data: updateUserInput,
+      });
       expect(updatedUserResult).toEqual(updatedUser);
     });
 
@@ -187,9 +211,15 @@ describe('UserService', () => {
         // Add other properties as required
       };
 
-      const updatedUserResult = await service.updateUser(userId, updateUserInput);
+      const updatedUserResult = await service.updateUser(
+        userId,
+        updateUserInput,
+      );
 
-      expect(prismaService.user.update).toHaveBeenCalledWith({ where: { id: userId }, data: updateUserInput });
+      expect(prismaService.user.update).toHaveBeenCalledWith({
+        where: { id: userId },
+        data: updateUserInput,
+      });
       expect(updatedUserResult).toBeNull();
     });
   });
@@ -202,15 +232,18 @@ describe('UserService', () => {
         username: 'John Doe',
         email: 'johndoe@example.com',
         phone: '+77777777777',
-        password_hash: 'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
-        emailConfirmed: false
+        password_hash:
+          'pbkdf2_sha512$10000$b3f161706567ac0d2cfad1862b763256$5dd608f97410c76a785789ed08d32099f97b03ff8610f47a5f63f2e5c8d70bf85674ac4518dbb9738f23da32d589cf11e387f7296a9cd2122dcfa33ee5fa4afd',
+        emailConfirmed: false,
       };
 
       jest.spyOn(prismaService.user, 'delete').mockResolvedValue(deletedUser);
 
       const deletedUserResult = await service.deleteUser(userId);
 
-      expect(prismaService.user.delete).toHaveBeenCalledWith({ where: { id: userId } });
+      expect(prismaService.user.delete).toHaveBeenCalledWith({
+        where: { id: userId },
+      });
       expect(deletedUserResult).toEqual(deletedUser);
     });
 
@@ -221,7 +254,9 @@ describe('UserService', () => {
 
       const deletedUserResult = await service.deleteUser(userId);
 
-      expect(prismaService.user.delete).toHaveBeenCalledWith({ where: { id: userId } });
+      expect(prismaService.user.delete).toHaveBeenCalledWith({
+        where: { id: userId },
+      });
       expect(deletedUserResult).toBeNull();
     });
   });

@@ -9,7 +9,7 @@ import {
   Get,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiHeader, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import {
   CreateUserRequestDto,
   CreateUserResponseDto,
