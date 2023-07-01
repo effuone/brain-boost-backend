@@ -6,7 +6,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 declare const module: any;
 async function bootstrap() {
   const logger = new Logger('EntryPoint');
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   app.useGlobalPipes(
     new ValidationPipe({ transform: true, forbidUnknownValues: false }),
   );
