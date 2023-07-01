@@ -101,7 +101,11 @@ export class RoadmapsService {
       include: {
         steps: {
           include: {
-            topics: true,
+            topics: {
+              include: {
+                topicResources: true,
+              },
+            },
           },
         },
       },
@@ -114,7 +118,11 @@ export class RoadmapsService {
       include: {
         steps: {
           include: {
-            topics: true,
+            topics: {
+              include: {
+                topicResources: true,
+              },
+            },
           },
         },
       },
