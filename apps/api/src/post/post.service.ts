@@ -5,7 +5,7 @@ import {
   PaginatedResult,
   PaginateFunction,
   paginator,
-} from 'src/persistence/prisma/prisma.paginator';
+} from '../persistence/prisma/prisma.paginator';
 
 export type SelectPostQueryParameters = {
   page?: number;

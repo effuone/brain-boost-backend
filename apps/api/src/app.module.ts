@@ -15,6 +15,8 @@ import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ProductsModule } from './products/products.module';
+import { DogsModule } from './dogs/dogs.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { ThrottlerModule } from '@nestjs/throttler';
     PersistenceModule,
     UserModule,
     PostModule,
+    ProductsModule,
+    DogsModule,
   ],
   controllers: [AppController, PostController, AuthController],
   providers: [PostService],

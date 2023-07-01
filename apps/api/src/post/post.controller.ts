@@ -17,7 +17,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { Headers } from '@nestjs/common';
 import { SelectPostQueryParameters } from './post.service';
 import { PaginatedResult } from '../persistence/prisma/prisma.paginator';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Controller('posts')
 @UseGuards(AuthGuard)

@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Prisma, User } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import * as crypto from 'crypto';
 import {
   CreateUserRequestDto,
