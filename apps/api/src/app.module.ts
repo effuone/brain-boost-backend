@@ -29,5 +29,6 @@ import { AiModule } from './ai/ai.module';
     AiModule,
   ],
   controllers: [AppController, AuthController],
+  providers: [],
 })
 export class AppModule {}

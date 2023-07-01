@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from 'src/persistence/prisma/prisma.service';
 import { UpdateRoadmapDto } from './dto/update-roadmap.dto';
-import { Roadmap } from '@prisma/client';
+import { Roadmap, Topic } from '@prisma/client';
 import { AiService } from 'src/ai/ai.service';
 
 @Injectable()
@@ -12,6 +12,44 @@ export class RoadmapsService {
   ) {}
 
   private readonly logger = new Logger(RoadmapsService.name);
+
+  async checkUserRoadmapCompletion(roadmapId: number): Promise<boolean> {
+    const topics = await this.prisma.topic.findMany({
+      where: { step: { roadmapId } },
+      select: { id: true },
+    });
+
+    const completedTopics = await this.prisma.topic.count({
+      where: { id: { in: topics.map((topic) => topic.id) }, topicStatus: 3 },
+    });
+
+    return completedTopics === topics.length;
+  }
+
+  async getUserProgress(userId: number): Promise<Topic[]> {
+    const topics = await this.prisma.topic.findMany({
+      where: {
+        step: {
+          roadmap: {
+            user: { id: userId },
+          },
+        },
+      },
+    });
+
+    return topics;
+  }
+
+  async updateTopicStatus(
+    userId: number,
+    topicId: number,
+    topicStatus: number,
+  ): Promise<void> {
+    await this.prisma.topic.update({
+      where: { id: topicId },
+      data: { topicStatus },
+    });
+  }
 
   async createRoadmap(topic: string) {
     this.logger.log(topic);
@@ -42,11 +80,16 @@ export class RoadmapsService {
             },
           })),
         },
+        userId: 1, // Assuming you want to associate the roadmap with a specific user (change the userId accordingly)
       },
       include: {
         steps: {
           include: {
-            topics: true,
+            topics: {
+              include: {
+                topicResources: true,
+              },
+            },
           },
         },
       },
@@ -69,7 +112,11 @@ export class RoadmapsService {
     return this.prisma.roadmap.findUnique({
       where: { id },
       include: {
-        steps: true,
+        steps: {
+          include: {
+            topics: true,
+          },
+        },
       },
     });
   }

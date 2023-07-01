@@ -42,6 +42,7 @@ export class RoadmapsController {
 
   @UseGuards(AuthGuard)
   @Patch(':id')
+  @ApiResponse({ status: 204, description: 'Successful operation' })
   updateRoadmapById(
     @Param('id') id: string,
     @Body() updateRoadmapDto: UpdateRoadmapDto,

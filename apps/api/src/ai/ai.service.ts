@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { OpenAI } from 'langchain/llms/openai';
 import { PromptTemplate } from 'langchain/prompts';
 import { jsonrepair } from 'jsonrepair';
@@ -8,7 +8,6 @@ const baseRoadmapJsonStructure = `{"title":"Learning topic","description":"Learn
 
 @Injectable()
 export class AiService {
-  private readonly logger = new Logger(AiService.name);
   async getConceptDescription(mainRoadmapTitle: string, description: string) {
     cohere.init(process.env.COHERE_API_KEY);
     const prompt = `what is meant by ${description}, where it used and how it useful for ${mainRoadmapTitle}`;
