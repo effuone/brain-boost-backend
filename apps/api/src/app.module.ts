@@ -8,8 +8,8 @@ import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { AssistgptModule } from './assistgpt/assistgpt.module';
 import { RoadmapsModule } from './roadmaps/roadmaps.module';
+import { AiModule } from './ai/ai.module';
 
 @Module({
   imports: [
@@ -25,8 +25,8 @@ import { RoadmapsModule } from './roadmaps/roadmaps.module';
     AuthModule,
     PersistenceModule,
     UserModule,
-    AssistgptModule,
     RoadmapsModule,
+    AiModule,
   ],
   controllers: [AppController, AuthController],
 })

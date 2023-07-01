@@ -1,0 +1,120 @@
+{
+    "title": "DevOps Engineer",
+    "steps": [
+      {
+        "title": "Learn the basics",
+        "topics": [
+          {
+            "name": "Linux Fundamentals",
+            "resources": [
+              {
+                "name": "Linux Command Line Basics",
+                "link": "https://www.edx.org/course/introduction-to-linux"
+              }
+            ]
+          },
+          {
+            "name": "Version Control Systems",
+            "resources": [
+              {
+                "name": "Git and GitHub",
+                "link": "https://www.atlassian.com/git/tutorials"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Configuration Management",
+        "topics": [
+          {
+            "name": "Infrastructure as Code",
+            "resources": [
+              {
+                "name": "Introduction to Infrastructure as Code",
+                "link": "https://aws.amazon.com/getting-started/hands-on/intro-to-aws-cloudformation"
+              }
+            ]
+          },
+          {
+            "name": "Configuration Management Tools",
+            "resources": [
+              {
+                "name": "Ansible Documentation",
+                "link": "https://docs.ansible.com"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Continuous Integration and Deployment",
+        "topics": [
+          {
+            "name": "Continuous Integration",
+            "resources": [
+              {
+                "name": "Jenkins User Handbook",
+                "link": "https://www.jenkins.io/doc/book"
+              }
+            ]
+          },
+          {
+            "name": "Containerization",
+            "resources": [
+              {
+                "name": "Docker Documentation",
+                "link": "https://docs.docker.com/get-started"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Monitoring and Logging",
+        "topics": [
+          {
+            "name": "Monitoring Tools",
+            "resources": [
+              {
+                "name": "Prometheus Documentation",
+                "link": "https://prometheus.io/docs/introduction/overview"
+              }
+            ]
+          },
+          {
+            "name": "Log Management",
+            "resources": [
+              {
+                "name": "Elasticsearch: The Definitive Guide",
+                "link": "https://www.elastic.co/guide/en/elasticsearch/guide/current/index.html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Cloud Platforms and Automation",
+        "topics": [
+          {
+            "name": "Cloud Computing",
+            "resources": [
+              {
+                "name": "AWS Certified Cloud Practitioner",
+                "link": "https://aws.amazon.com/certification/certified-cloud-practitioner"
+              }
+            ]
+          },
+          {
+            "name": "Infrastructure Automation",
+            "resources": [
+              {
+                "name": "Terraform Documentation",
+                "link": "https://www.terraform.io/docs/index.html"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

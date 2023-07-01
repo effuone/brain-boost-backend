@@ -1,0 +1,95 @@
+{
+    "title": "Calculus",
+    "steps": [
+      {
+        "title": "Foundations of Calculus",
+        "topics": [
+          {"name": "Limits"},
+          {"name": "Continuity"},
+          {"name": "Differentiation"},
+          {"name": "Integration"}
+        ]
+      },
+      {
+        "title": "Differentiation Techniques",
+        "topics": [
+          {"name": "Derivative Rules"},
+          {"name": "Implicit Differentiation"},
+          {"name": "Higher Order Derivatives"},
+          {"name": "Applications of Derivatives"}
+        ]
+      },
+      {
+        "title": "Applications of Differentiation",
+        "topics": [
+          {"name": "Optimization"},
+          {"name": "Related Rates"},
+          {"name": "Curve Sketching"},
+          {"name": "L'Hôpital's Rule"}
+        ]
+      },
+      {
+        "title": "Integration Techniques",
+        "topics": [
+          {"name": "Antiderivatives"},
+          {"name": "Definite and Indefinite Integrals"},
+          {"name": "Integration by Substitution"},
+          {"name": "Integration by Parts"}
+        ]
+      },
+      {
+        "title": "Applications of Integration",
+        "topics": [
+          {"name": "Area under a Curve"},
+          {"name": "Volumes of Revolution"},
+          {"name": "Arc Length and Surface Area"},
+          {"name": "Improper Integrals"}
+        ]
+      },
+      {
+        "title": "Sequences and Series",
+        "topics": [
+          {"name": "Sequences"},
+          {"name": "Series Convergence and Divergence"},
+          {"name": "Tests for Series"},
+          {"name": "Power Series"}
+        ]
+      },
+      {
+        "title": "Differential Equations",
+        "topics": [
+          {"name": "First-Order Differential Equations"},
+          {"name": "Second-Order Differential Equations"},
+          {"name": "Homogeneous and Non-homogeneous Equations"},
+          {"name": "Systems of Differential Equations"}
+        ]
+      },
+      {
+        "title": "Multivariable Calculus",
+        "topics": [
+          {"name": "Partial Derivatives"},
+          {"name": "Multiple Integrals"},
+          {"name": "Vector Calculus"},
+          {"name": "Gradient, Divergence, and Curl"}
+        ]
+      },
+      {
+        "title": "Vector Calculus",
+        "topics": [
+          {"name": "Line Integrals"},
+          {"name": "Surface Integrals"},
+          {"name": "Green's Theorem"},
+          {"name": "Stokes' Theorem"}
+        ]
+      },
+      {
+        "title": "Calculus Applications",
+        "topics": [
+          {"name": "Optimization in Multivariable Calculus"},
+          {"name": "Double and Triple Integrals Applications"},
+          {"name": "Calculus of Variations"},
+          {"name": "Numerical Methods in Calculus"}
+        ]
+      }
+    ]
+  }

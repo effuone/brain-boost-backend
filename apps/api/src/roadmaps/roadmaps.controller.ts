@@ -6,30 +6,40 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { RoadmapsService } from './roadmaps.service';
-import { CreateRoadmapDto } from './dto/create-roadmap.dto';
 import { UpdateRoadmapDto } from './dto/update-roadmap.dto';
+import { GenerateRoadmapDto } from './dto/create-roadmap.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiBearerAuth, ApiBody, ApiResponse } from '@nestjs/swagger';
 
 @Controller('roadmaps')
+@ApiBearerAuth()
 export class RoadmapsController {
   constructor(private readonly roadmapsService: RoadmapsService) {}
 
   @Post()
-  createRoadmap(@Body() createRoadmapDto: CreateRoadmapDto) {
-    return this.roadmapsService.createRoadmap(createRoadmapDto);
+  @ApiBody({ type: GenerateRoadmapDto })
+  @ApiResponse({ status: 200, description: 'Successful operation' })
+  @UseGuards(AuthGuard)
+  createRoadmap(@Body() data: GenerateRoadmapDto) {
+    return this.roadmapsService.createRoadmap(data.title);
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   getAllRoadmaps() {
     return this.roadmapsService.getAllRoadmaps();
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   getRoadmapById(@Param('id') id: string) {
     return this.roadmapsService.getRoadmapById(+id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   updateRoadmapById(
     @Param('id') id: string,
@@ -38,6 +48,7 @@ export class RoadmapsController {
     return this.roadmapsService.updateRoadmap(+id, updateRoadmapDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   deleteRoadmapById(@Param('id') id: string) {
     return this.roadmapsService.deleteRoadmap(+id);
