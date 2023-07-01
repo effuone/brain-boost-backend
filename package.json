@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "@nestjs/mapped-types": "*"
+  },
   "name": "turborepo-basic-shared",
   "version": "0.0.0",
   "private": true,
@@ -14,8 +17,8 @@
   },
   "devDependencies": {
     "prettier": "^2.5.1",
-    "turbo": "latest",
-    "prisma": "^3.10.0"
+    "prisma": "^4.16.2",
+    "turbo": "latest"
   },
   "engines": {
     "npm": ">=7.0.0",
