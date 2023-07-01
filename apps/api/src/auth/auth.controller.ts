@@ -8,6 +8,7 @@ import {
   Logger,
   Get,
   UseGuards,
+  HttpCode,
 } from '@nestjs/common';
 import { ApiTags, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import {
@@ -27,6 +28,7 @@ export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 
   @Post('signup')
+  @HttpCode(200)
   @ApiBody({
     type: () => CreateUserRequestDto,
     description: 'User signup data',
@@ -63,6 +65,7 @@ export class AuthController {
   }
 
   @Post('signin')
+  @HttpCode(200)
   @ApiBody({
     type: () => LoginUserRequestDto,
     description: 'User signin data',
@@ -96,6 +99,7 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
+  @HttpCode(200)
   @Get('profile')
   async getProfile(@Headers() headers): Promise<UserDto> {
     try {
