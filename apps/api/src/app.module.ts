@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AssistgptModule } from './assistgpt/assistgpt.module';
+import { RoadmapsModule } from './roadmaps/roadmaps.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AssistgptModule } from './assistgpt/assistgpt.module';
     PersistenceModule,
     UserModule,
     AssistgptModule,
+    RoadmapsModule,
   ],
   controllers: [AppController, AuthController],
 })
