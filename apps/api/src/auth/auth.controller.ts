@@ -13,7 +13,6 @@ import {
 import { ApiTags, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import {
   CreateUserRequestDto,
-  CreateUserResponseDto,
   LoginUserRequestDto,
   UserDto,
 } from '../user/user.dto';
@@ -44,7 +43,7 @@ export class AuthController {
   })
   async signUpUser(
     @Body() userData: CreateUserRequestDto,
-  ): Promise<CreateUserResponseDto> {
+  ): Promise<LoginUserResponseDto> {
     try {
       const userExists = await this.authService.checkIfUserExists(
         userData.email,
@@ -55,8 +54,8 @@ export class AuthController {
 
       const newUser = await this.authService.signUp(userData);
       this.logger.log(`User signed up: ${newUser.email}`);
-
-      return newUser;
+      const accessToken = await this.authService.signIn(userData);
+      return accessToken;
     } catch (error: any) {
       this.logger.error(`Error signing up user: ${error.message}`);
       console.log(error);

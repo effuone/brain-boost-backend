@@ -12,7 +12,6 @@ export class AiService {
   async getConceptDescription(mainRoadmapTitle: string, description: string) {
     cohere.init(process.env.COHERE_API_KEY);
     const prompt = `what is meant by ${description}, where it used and how it useful for ${mainRoadmapTitle}`;
-    this.logger.log(prompt);
     const response = await cohere.generate({
       model: 'command',
       prompt: prompt,
@@ -24,7 +23,6 @@ export class AiService {
     });
 
     const text = response.body.generations[0].text;
-    this.logger.log(text);
     return text;
   }
   async createRoadmapSteps(topic: string) {
@@ -48,9 +46,6 @@ export class AiService {
     const responseText = await openAIModel.call(formatprompt);
     const fixedRes = JSON.parse(jsonrepair(responseText));
     const { title, description, steps } = fixedRes;
-    this.logger.log(title);
-    this.logger.log(description);
-    this.logger.log(steps);
     return { title, description, steps };
   }
 }

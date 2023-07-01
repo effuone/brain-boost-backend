@@ -12,9 +12,10 @@ import { RoadmapsService } from './roadmaps.service';
 import { UpdateRoadmapDto } from './dto/update-roadmap.dto';
 import { GenerateRoadmapDto } from './dto/create-roadmap.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ApiBearerAuth, ApiBody, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('roadmaps')
+@ApiTags('Roadmaps')
 @ApiBearerAuth()
 export class RoadmapsController {
   constructor(private readonly roadmapsService: RoadmapsService) {}
