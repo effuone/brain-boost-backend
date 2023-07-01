@@ -1,5 +1,4 @@
 import { ApiProperty, OmitType } from '@nestjs/swagger';
-import { User } from '@prisma/client';
 import {
   MinLength,
   MaxLength,
