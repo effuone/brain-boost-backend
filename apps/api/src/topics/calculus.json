@@ -1,0 +1,110 @@
+{
+  "title": "Calculus",
+  "description": "Calculus is a branch of mathematics that deals with continuous change and motion. It encompasses two main branches: differential calculus and integral calculus. Differential calculus focuses on the concept of derivatives, which measures the rate of change of a function at a given point. Integral calculus, on the other hand, deals with the concept of integrals, which calculates the accumulation of quantities over a given interval.",
+  "steps": [
+    {
+      "stepTitle": "Learn the basics",
+      "stepDescription": "Start by understanding the fundamental concepts of calculus, including limits, derivatives, and integrals. These concepts form the foundation of calculus and are crucial for further learning.",
+      "stepStatus": 1,
+      "topics": [
+        {
+          "topicName": "Limits",
+          "topicDescription": "Limits are used to define the behavior of a function as it approaches a certain value or infinity. They are fundamental to understanding continuity, differentiability, and integrability.",
+          "topicStatus": 1,
+          "topicResources": [
+            {
+              "resourceName": "Khan Academy - Limits",
+              "resourceLink": "https://www.khanacademy.org/math/ap-calculus-ab/ab-limits-new"
+            },
+            {
+              "resourceName": "Paul's Online Math Notes - Limits",
+              "resourceLink": "http://tutorial.math.lamar.edu/Classes/CalcI/LimitsIntro.aspx"
+            }
+          ]
+        },
+        {
+          "topicName": "Derivatives",
+          "topicDescription": "Derivatives measure the rate of change of a function at a given point. They are used to calculate slopes of tangent lines, determine critical points, and analyze the behavior of functions.",
+          "topicStatus": 1,
+          "topicResources": [
+            {
+              "resourceName": "Khan Academy - Derivatives",
+              "resourceLink": "https://www.khanacademy.org/math/ap-calculus-ab/ab-differentiation-1-new"
+            },
+            {
+              "resourceName": "Paul's Online Math Notes - Derivatives",
+              "resourceLink": "http://tutorial.math.lamar.edu/Classes/CalcI/DerivativeIntro.aspx"
+            }
+          ]
+        },
+        {
+          "topicName": "Integrals",
+          "topicDescription": "Integrals calculate the accumulation of quantities over a given interval. They are used to find areas under curves, calculate total displacement, and solve various real-world problems.",
+          "topicStatus": 1,
+          "topicResources": [
+            {
+              "resourceName": "Khan Academy - Integrals",
+              "resourceLink": "https://www.khanacademy.org/math/ap-calculus-ab/ab-integration-new"
+            },
+            {
+              "resourceName": "Paul's Online Math Notes - Integrals",
+              "resourceLink": "http://tutorial.math.lamar.edu/Classes/CalcI/DefnOfIntegral.aspx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stepTitle": "Advanced Calculus",
+      "stepDescription": "Once you have a solid understanding of the basics, you can delve into advanced topics in calculus. These topics include applications of derivatives and integrals, multivariable calculus, differential equations, and more.",
+      "stepStatus": 1,
+      "topics": [
+        {
+          "topicName": "Applications of Calculus",
+          "topicDescription": "Explore how calculus is applied in various fields such as physics, engineering, economics, and biology. Learn how to model and solve real-world problems using calculus techniques.",
+          "topicStatus": 1,
+          "topicResources": [
+            {
+              "resourceName": "MIT OpenCourseWare - Applications of Calculus",
+              "resourceLink": "https://ocw.mit.edu/courses/mathematics/18-01-single-variable-calculus-fall-2006/video-lectures/"
+            },
+            {
+              "resourceName": "Coursera - Calculus: Single Variable",
+              "resourceLink": "https://www.coursera.org/learn/calculus1"
+            }
+          ]
+        },
+        {
+          "topicName": "Multivariable Calculus",
+          "topicDescription": "Extend your calculus knowledge to functions with multiple variables. Learn about partial derivatives, multiple integrals, and vector calculus.",
+          "topicStatus": 1,
+          "topicResources": [
+            {
+              "resourceName": "Khan Academy - Multivariable Calculus",
+              "resourceLink": "https://www.khanacademy.org/math/multivariable-calculus"
+            },
+            {
+              "resourceName": "MIT OpenCourseWare - Multivariable Calculus",
+              "resourceLink": "https://ocw.mit.edu/courses/mathematics/18-02-multivariable-calculus-fall-2007/"
+            }
+          ]
+        },
+        {
+          "topicName": "Differential Equations",
+          "topicDescription": "Study equations that involve derivatives and their applications. Learn how to solve ordinary differential equations and understand their role in modeling dynamic systems.",
+          "topicStatus": 1,
+          "topicResources": [
+            {
+              "resourceName": "Khan Academy - Differential Equations",
+              "resourceLink": "https://www.khanacademy.org/math/differential-equations"
+            },
+            {
+              "resourceName": "MIT OpenCourseWare - Differential Equations",
+              "resourceLink": "https://ocw.mit.edu/courses/mathematics/18-03-differential-equations-spring-2010/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

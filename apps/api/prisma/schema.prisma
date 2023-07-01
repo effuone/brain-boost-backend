@@ -11,20 +11,56 @@ datasource db {
 }
 
 model User {
-  id             Int     @default(autoincrement()) @id
-  email          String  @unique
-  username       String  @default("") 
-  phone          String  @default("")
-  password_hash  String
-  emailConfirmed Boolean @default(false)
-  posts          Post[]
+  id               Int       @default(autoincrement()) @id
+  email            String    @unique
+  username         String    @default("")
+  phone            String    @default("")
+  password_hash    String
+  emailConfirmed   Boolean   @default(false)
+  progress         Progress[]
 }
 
-model Post {
-  id        Int      @default(autoincrement()) @id
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+model Progress {
+  id               Int       @default(autoincrement()) @id
+  userId           Int
+  topicId          Int
+  completed        Boolean   @default(false)
+  user             User      @relation(fields: [userId], references: [id])
+  topic            Topic     @relation(fields: [topicId], references: [id])
+}
+
+model Topic {
+  id               Int       @default(autoincrement()) @id
+  topicName        String
+  topicDescription String
+  topicStatus      Int
+  step             Step?     @relation(fields: [stepId], references: [id])
+  stepId           Int?
+  topicResources   TopicResource[]
+  progresses       Progress[]
+}
+
+model Step {
+  id               Int       @default(autoincrement()) @id
+  stepTitle        String
+  stepDescription  String
+  stepStatus       Int
+  roadmap          Roadmap  @relation(fields: [roadmapId], references: [id])
+  roadmapId        Int
+  topics           Topic[]
+}
+
+model Roadmap {
+  id               Int       @default(autoincrement()) @id
+  title            String
+  description      String
+  steps            Step[]
+}
+
+model TopicResource {
+  id               Int       @default(autoincrement()) @id
+  resourceName     String
+  resourceLink     String
+  topic            Topic     @relation(fields: [topicId], references: [id])
+  topicId          Int
 }
