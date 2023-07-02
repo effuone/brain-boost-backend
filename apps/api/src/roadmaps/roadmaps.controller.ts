@@ -10,15 +10,20 @@ import {
 } from '@nestjs/common';
 import { RoadmapsService } from './roadmaps.service';
 import { UpdateRoadmapDto } from './dto/update-roadmap.dto';
-import { GenerateRoadmapDto } from './dto/create-roadmap.dto';
+import { GenerateRoadmapDto, CreateRoadmapTestsDto } from './dto/create-roadmap.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AiService } from 'src/ai/ai.service';
 
 @Controller('roadmaps')
 @ApiTags('Roadmaps')
 @ApiBearerAuth()
 export class RoadmapsController {
-  constructor(private readonly roadmapsService: RoadmapsService) {}
+  constructor(
+    private readonly roadmapsService: RoadmapsService,
+    private readonly aiService: AiService
+    ) {}
+
 
   @Post()
   @ApiBody({ type: GenerateRoadmapDto })
@@ -26,6 +31,14 @@ export class RoadmapsController {
   @UseGuards(AuthGuard)
   createRoadmap(@Body() data: GenerateRoadmapDto) {
     return this.roadmapsService.createRoadmap(data.title);
+  }
+
+  @Post('tests')
+  @ApiBody({ type: CreateRoadmapTestsDto })
+  @ApiResponse({ status: 200, description: 'Successful operation' })
+  // @UseGuards(AuthGuard)
+  createRoadmapTest(@Body() data: CreateRoadmapTestsDto) {
+    return this.aiService.createRoadmapTests(data.topic)
   }
 
   @Get()
