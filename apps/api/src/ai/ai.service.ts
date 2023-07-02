@@ -52,12 +52,12 @@ export class AiService {
   }
 
   async createRoadmapTests(topic: string) {
-    const template = `Create a json file using following structure: {structure}. Json file should include 3 questions on {topic}`;
+    const template = `Create a json file using following structure: {structure}. Given structure is an example of test question created on topic of Source Code Management. Your JSON file should include 5 questions on {topic}`;
 
     const openAIModel = new OpenAI({
       openAIApiKey: process.env.OPENAI_API_KEY,
-      modelName: 'gpt-3.5-turbo-16k',
-      temperature: 0.7,
+      modelName: 'text-davinci-003',
+      temperature: 1,
       maxTokens: 2000,
     });
 
