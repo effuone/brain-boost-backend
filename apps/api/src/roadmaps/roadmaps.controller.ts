@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { RoadmapsService } from './roadmaps.service';
 import { UpdateRoadmapDto } from './dto/update-roadmap.dto';
@@ -14,6 +15,7 @@ import { GenerateRoadmapDto, CreateRoadmapTestsDto } from './dto/create-roadmap.
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AiService } from 'src/ai/ai.service';
+import { query } from 'express';
 
 @Controller('roadmaps')
 @ApiTags('Roadmaps')
