@@ -63,7 +63,6 @@ export class CreateTopicResourceDto {
   link: string;
 }
 
-
 export class CreateRoadmapTestsDto {
   @ApiProperty()
   topic: string;
